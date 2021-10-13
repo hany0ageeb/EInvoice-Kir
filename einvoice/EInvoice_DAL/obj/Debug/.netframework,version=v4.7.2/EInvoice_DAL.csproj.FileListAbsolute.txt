@@ -1,0 +1,14 @@
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.AssemblyInfoInputs.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.AssemblyInfo.cs
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\EInvoice_DAL.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\EInvoice_DAL.pdb
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\Newtonsoft.Json.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\RestSharp.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\System.Data.SqlClient.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\EInvoice.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\bin\Debug\.netframework,version=v4.7.2\EInvoice.pdb
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.csproj.CopyComplete
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\.netframework,version=v4.7.2\EInvoice_DAL.pdb

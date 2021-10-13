@@ -1,0 +1,15 @@
+{
+  "Server": "ELECTAXSRV",
+  "Database": "EInvoice_test",
+  "UserName": "kiriazi",
+  "Password": "a2lyaWF6aQ==",
+  "TokenIssuerName": "MCDR 2019",
+  "MaximumInvoiceTotalAmountWithoutNationalId": 50000.0,
+  "InvoiceSubmissionInHours": 192,
+  "DLLPath": "C:\\Windows\\System32\\eps2003csp11.dll",
+  "RemoteConnection": false,
+  "EnableFileGeneration": true,
+  "SerializedFolderName": "Serialized",
+  "SignedInvoicesFolderName": "Invoices",
+  "RejectedInvoicesFolderName": "RejectedInvoices"
+}

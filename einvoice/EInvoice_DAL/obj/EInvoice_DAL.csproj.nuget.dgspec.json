@@ -1,0 +1,114 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice_DAL.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
+        "projectName": "EInvoice",
+        "projectPath": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
+        "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net461"
+        ],
+        "sources": {
+          "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net461": {
+            "targetAlias": "net461",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "targetAlias": "net461",
+          "dependencies": {
+            "BouncyCastle": {
+              "target": "Package",
+              "version": "[1.8.9, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "Pkcs11Interop": {
+              "target": "Package",
+              "version": "[5.1.2, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice_DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice_DAL.csproj",
+        "projectName": "EInvoice_DAL",
+        "projectPath": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice_DAL.csproj",
+        "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net461"
+        ],
+        "sources": {
+          "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net461": {
+            "targetAlias": "net461",
+            "projectReferences": {
+              "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
+                "projectPath": "C:\\Users\\Home\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "targetAlias": "net461",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.12.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

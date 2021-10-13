@@ -1,0 +1,10 @@
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.AssemblyInfoInputs.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.AssemblyInfo.cs
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\bin\Debug\.netframework,version=v4.7.2\EInvoice.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\bin\Debug\.netframework,version=v4.7.2\EInvoice.pdb
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\bin\Debug\.netframework,version=v4.7.2\Newtonsoft.Json.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.csproj.CopyComplete
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.dll
+C:\Users\Home\Desktop\EInvoice\EInvoice.Model\obj\Debug\.netframework,version=v4.7.2\EInvoice.pdb

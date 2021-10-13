@@ -1,0 +1,15 @@
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\EInvoice_DAL.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\EInvoice_DAL.pdb
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\BouncyCastle.Crypto.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\Newtonsoft.Json.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\Pkcs11Interop.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\RestSharp.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\EInvoice.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\bin\Release\net461\EInvoice.pdb
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.csprojAssemblyReference.cache
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.AssemblyInfoInputs.cache
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.AssemblyInfo.cs
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.csproj.CoreCompileInputs.cache
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.csproj.CopyComplete
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice_DAL\obj\Release\net461\EInvoice_DAL.pdb

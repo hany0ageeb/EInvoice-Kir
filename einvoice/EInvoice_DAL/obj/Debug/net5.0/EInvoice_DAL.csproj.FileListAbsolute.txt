@@ -1,0 +1,5 @@
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\net5.0\EInvoice_DAL.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\net5.0\EInvoice_DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\net5.0\EInvoice_DAL.AssemblyInfoInputs.cache
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\net5.0\EInvoice_DAL.AssemblyInfo.cs
+C:\Users\Home\Desktop\EInvoice\EInvoice_DAL\obj\Debug\net5.0\EInvoice_DAL.csproj.CoreCompileInputs.cache

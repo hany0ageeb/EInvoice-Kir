@@ -1,0 +1,12 @@
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\bin\Release\net461\EInvoice.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\bin\Release\net461\EInvoice.pdb
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\bin\Release\net461\BouncyCastle.Crypto.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\bin\Release\net461\Newtonsoft.Json.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\bin\Release\net461\Pkcs11Interop.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.csprojAssemblyReference.cache
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.AssemblyInfoInputs.cache
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.AssemblyInfo.cs
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.csproj.CoreCompileInputs.cache
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.csproj.CopyComplete
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.dll
+C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Release\net461\EInvoice.pdb
