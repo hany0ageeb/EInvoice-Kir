@@ -1792,42 +1792,42 @@ where cast(ora_lines.SOPNUMBER as nvarchar(50)) not in (select internalid from d
 and   ISS_ID = @IssuerId
 order by SOPNUMBER,LINE_ITEM_SEQ;
 
-select cast(TAXPERCENT as decimal(28,5)) as TAXPERCENT
+select  cast(TAXPERCENT as decimal(28,5)) as TAXPERCENT
 ,		cast(TAXTYPE as nvarchar(30)) as TAXTYPE
 ,		cast(TAXSUBTYPE as nvarchar(50)) as TAXSUBTYPE
 ,		cast(AMT as decimal(28,5)) as AMT
 ,		cast(LINEITMSEQ as nvarchar(50)) as LINE_ITEM_SEQ
 ,		cast(SOPNUMBER as nvarchar(50)) as SOPNUMBER
 from openquery([PROD],'
-select  eng_details.TAXPERCENT	--0
-,		eng_details.TAXTYPE	--1
-,		eng_details.TAXSUBTYPE	--2
-,		eng_details.AMT	--3
-,		eng_details.LINEITMSEQ	--4
-,		eng_details.sopnumber	--5
+select  cast(eng_details.TAXPERCENT as number)	as TAXPERCENT --0
+,		cast(eng_details.TAXTYPE as varchar2(30))	as TAXTYPE --1
+,		cast(eng_details.TAXSUBTYPE	as varchar2(50)) as TAXSUBTYPE--2
+,		cast(eng_details.AMT as number) as AMT	--3
+,		cast(eng_details.LINEITMSEQ as varchar2(50)) as	LINEITMSEQ--4
+,		cast(eng_details.sopnumber as varchar2(50)) as	sopnumber --5
 ,		eng_header.ISS_ID		--6
 from xxcite_tax_details_eng_v eng_details
 join xxcite_tax_headers_eng_v eng_header
 	on eng_header.sopnumber = eng_details.sopnumber
 union all
-select  eng_details.TAXPERCENT
-,		eng_details.TAXTYPE
-,		eng_details.TAXSUBTYPE
-,		eng_details.AMT
-,		eng_details.LINEITMSEQ
-,		eng_details.sopnumber
-,		eng_header.ISS_ID
+select  cast(eng_details.TAXPERCENT as number)	as TAXPERCENT --0
+,		cast(eng_details.TAXTYPE as varchar2(30))	as TAXTYPE --1
+,		cast(eng_details.TAXSUBTYPE	as varchar2(50)) as TAXSUBTYPE--2
+,		cast(eng_details.AMT as number) as AMT	--3
+,		cast(eng_details.LINEITMSEQ as varchar2(50)) as LINEITMSEQ	--4
+,		cast(eng_details.sopnumber as varchar2(50))	as sopnumber--5
+,		eng_header.ISS_ID		--6
 from xxcite_tax_details_home_v eng_details
 join xxcite_tax_headers_home_v eng_header
 	on eng_details.sopnumber = eng_header.sopnumber
 union all
-select  eng_details.TAXPERCENT
-,		eng_details.TAXTYPE
-,		eng_details.TAXSUBTYPE
-,		eng_details.AMT
-,		eng_details.LINEITMSEQ
-,		eng_details.sopnumber
-,		eng_header.ISS_ID
+select  cast(eng_details.TAXPERCENT as number)	as TAXPERCENT --0
+,		cast(eng_details.TAXTYPE as varchar2(30))	as TAXTYPE --1
+,		cast(eng_details.TAXSUBTYPE	as varchar2(50)) as TAXSUBTYPE--2
+,		cast(eng_details.AMT as number) as AMT	--3
+,		cast(eng_details.LINEITMSEQ as varchar2(50)) as LINEITMSEQ	--4
+,		cast(eng_details.sopnumber as varchar2(50))	 as sopnumber--5
+,		eng_header.ISS_ID		--6
 from xxcite_tax_details_v eng_details
 join xxcite_tax_headers_v eng_header
 	on eng_details.sopnumber = eng_header.sopnumber
@@ -2046,66 +2046,66 @@ create procedure [dbo].[GetDocumentFromOracleByInternalId]
 as
 begin
 	select cast(ISS_BRANCHID as nvarchar(50)) as ISS_BRANCHID
-	,	   cast(ISS_COUNTRY as nvarchar(2)) as ISS_COUNTRY
-	,	   cast(ISS_GOVERNATE as nvarchar(100)) as ISS_GOVERNATE
-	,	   cast(ISS_REGIONCITY as nvarchar(100)) as ISS_REGIONCITY
-	,	   cast(ISS_STREET as nvarchar(200)) as ISS_STREET
-	,	   cast(ISS_BLDGNO as nvarchar(100)) as ISS_BLDGNO
-	,		cast(ISS_POSTAL as nvarchar(30)) as ISS_POSTAL
-	,		cast(ISS_FLOOR as nvarchar(100)) as ISS_FLOOR
-	,		cast(ISS_ROOM as nvarchar(100)) as ISS_ROOM
-	,		cast(ISS_LANDMARK as nvarchar(500)) as ISS_LANDMARK
-	,		cast(ISS_ADDINFO as nvarchar(500)) as ISS_ADDINFO
-	,		cast(ISS_TYPE as nvarchar(2)) as ISS_TYPE
-	,		cast(ISS_ID as nvarchar(30)) as ISS_ID
-	,		cast(ISS_NAME as nvarchar(200)) as ISS_NAME
-	,		cast(RECV_COUNTRY as nvarchar(2)) as RECV_COUNTRY
-	,		cast(RECV_GOVERNATE as nvarchar(100)) as RECV_GOVERNATE
-	,		cast(RECV_REGIONCITY as nvarchar(100)) as RECV_REGIONCITY
-	,		cast(RECV_STREET as nvarchar(200)) as RECV_STREET
-	,		cast(RECV_BLDGNO as nvarchar(100)) as RECV_BLDGNO
-	,		cast(RECV_POSTAL as nvarchar(30)) as RECV_POSTAL
-	,		cast(RECV_FLOOR as nvarchar(100)) as RECV_FLOOR
-	,		cast(RECV_ROOM as nvarchar(100)) as RECV_ROOM
-	,		cast(RECV_LANDMARK as nvarchar(500)) as RECV_LANDMARK
-	,		cast(RECV_ADDINFO as nvarchar(500)) as RECV_ADDINFO
-	,		cast(RECV_TYPE as nvarchar(1)) as RECV_TYPE
-	,		cast(RECV_ID as nvarchar(30)) as RECV_ID
-	,		cast(RECV_NAME as nvarchar(200)) as RECV_NAME
-	,		cast(DOC_TYPE as nvarchar(20)) as DOC_TYPE
-	,		cast(DOC_TYPVER as nvarchar(100)) as DOC_TYPVER
-	,		cast(DOC_DATETIMEISS as datetime) as DOC_DATETIMEISS
-	,		cast(DOC_TAXPAYERACT as nvarchar(10)) as DOC_TAXPAYERACT
-	,		cast(DOC_INTERNALID as nvarchar(50)) as DOC_INTERNALID
-	,		cast(DOC_POREF as nvarchar(100)) as DOC_POREF
-	,		cast(DOC_PODESC as nvarchar(500)) as DOC_PODESC
-	,		cast(DOC_SOREF as nvarchar(100)) as DOC_SOREF
-	,		cast(DOC_SODESC as nvarchar(500)) as DOC_SODESC
-	,		cast(PROFORMAINVOICENUMBER as nvarchar(50)) as PROFORMAINVOICENUMBER
-	,		cast(PAY_SWIFTCODE as nvarchar(50)) as PAY_SWIFTCODE
-	,		cast(PAY_TERMS as nvarchar(500)) as PAY_TERMS
-	,		cast(DEL_APPROACH as nvarchar(100)) as DEL_APPROACH
-	,		cast(DEL_PACK as nvarchar(100)) as DEL_PACK
-	,		cast(DEL_DTVALID as datetime) as DEL_DTVALID
-	,		cast(DEL_EXP as nvarchar(100)) as DEL_EXP
-	,		cast(DEL_COUNTRY as nvarchar(100)) as DEL_COUNTRY
-	,		cast(DEL_GROSSWGHT as decimal(28,5)) as DEL_GROSSWGHT
-	,		cast(DEL_NETWGHT as decimal(28,5)) as DEL_NETWGHT
-	,		cast(DEL_TERMS as nvarchar(500)) as DEL_TERMS
-	,		cast(TOTALSALES as decimal(28,5)) as TOTALSALES
-	,		cast(TOTALDISCAMT as decimal(28,5)) as TOTALDISCAMT
-	,		cast(NETAMT as decimal(28,5)) as NETAMT
-	,		cast(EXTRADISC as decimal(28,5)) as EXTRADISC
-	,		cast(TOT_ITEMSDISCAMT as decimal(28,5)) as TOT_ITEMSDISCAMT
-	,		cast(TAXAMOUNT as decimal(28,5)) as TAXAMOUNT
-	,		cast(TOTAMT as decimal(28,5)) as TOTAMT
-	,		SIGNTYP
-	,		SIGNVAL
-	,		cast(SOPNUMBER as nvarchar(50)) as SOPNUMBER
-	,		SOPTYPE
+,	   cast(ISS_COUNTRY as nvarchar(2)) as ISS_COUNTRY
+,	   cast(ISS_GOVERNATE as nvarchar(100)) as ISS_GOVERNATE
+,	   cast(ISS_REGIONCITY as nvarchar(100)) as ISS_REGIONCITY
+,	   cast(ISS_STREET as nvarchar(200)) as ISS_STREET
+,	   cast(ISS_BLDGNO as nvarchar(100)) as ISS_BLDGNO
+,		cast(ISS_POSTAL as nvarchar(30)) as ISS_POSTAL
+,		cast(ISS_FLOOR as nvarchar(100)) as ISS_FLOOR
+,		cast(ISS_ROOM as nvarchar(100)) as ISS_ROOM
+,		cast(ISS_LANDMARK as nvarchar(500)) as ISS_LANDMARK
+,		cast(ISS_ADDINFO as nvarchar(500)) as ISS_ADDINFO
+,		cast(ISS_TYPE as nvarchar(2)) as ISS_TYPE
+,		cast(ISS_ID as nvarchar(30)) as ISS_ID
+,		cast(ISS_NAME as nvarchar(200)) as ISS_NAME
+,		cast(RECV_COUNTRY as nvarchar(2)) as RECV_COUNTRY
+,		cast(RECV_GOVERNATE as nvarchar(100)) as RECV_GOVERNATE
+,		cast(RECV_REGIONCITY as nvarchar(100)) as RECV_REGIONCITY
+,		cast(RECV_STREET as nvarchar(200)) as RECV_STREET
+,		cast(RECV_BLDGNO as nvarchar(100)) as RECV_BLDGNO
+,		cast(RECV_POSTAL as nvarchar(30)) as RECV_POSTAL
+,		cast(RECV_FLOOR as nvarchar(100)) as RECV_FLOOR
+,		cast(RECV_ROOM as nvarchar(100)) as RECV_ROOM
+,		cast(RECV_LANDMARK as nvarchar(500)) as RECV_LANDMARK
+,		cast(RECV_ADDINFO as nvarchar(500)) as RECV_ADDINFO
+,		cast(RECV_TYPE as nvarchar(1)) as RECV_TYPE
+,		cast(RECV_ID as nvarchar(30)) as RECV_ID
+,		cast(RECV_NAME as nvarchar(200)) as RECV_NAME
+,		cast(DOC_TYPE as nvarchar(20)) as DOC_TYPE
+,		cast(DOC_TYPVER as nvarchar(100)) as DOC_TYPVER
+,		cast(DOC_DATETIMEISS as datetime) as DOC_DATETIMEISS
+,		cast(DOC_TAXPAYERACT as nvarchar(10)) as DOC_TAXPAYERACT
+,		cast(DOC_INTERNALID as nvarchar(50)) as DOC_INTERNALID
+,		cast(DOC_POREF as nvarchar(100)) as DOC_POREF
+,		cast(DOC_PODESC as nvarchar(500)) as DOC_PODESC
+,		cast(DOC_SOREF as nvarchar(100)) as DOC_SOREF
+,		cast(DOC_SODESC as nvarchar(500)) as DOC_SODESC
+,		cast(PROFORMAINVOICENUMBER as nvarchar(50)) as PROFORMAINVOICENUMBER
+,		cast(PAY_SWIFTCODE as nvarchar(50)) as PAY_SWIFTCODE
+,		cast(PAY_TERMS as nvarchar(500)) as PAY_TERMS
+,		cast(DEL_APPROACH as nvarchar(100)) as DEL_APPROACH
+,		cast(DEL_PACK as nvarchar(100)) as DEL_PACK
+,		cast(DEL_DTVALID as datetime) as DEL_DTVALID
+,		cast(DEL_EXP as nvarchar(100)) as DEL_EXP
+,		cast(DEL_COUNTRY as nvarchar(100)) as DEL_COUNTRY
+,		cast(isnull(DEL_GROSSWGHT,'0') as decimal(28,5)) as DEL_GROSSWGHT
+,		cast(isnull(DEL_NETWGHT,'0') as decimal(28,5)) as DEL_NETWGHT
+,		cast(DEL_TERMS as nvarchar(500)) as DEL_TERMS
+,		cast(TOTALSALES as decimal(28,5)) as TOTALSALES
+,		cast(TOTALDISCAMT as decimal(28,5)) as TOTALDISCAMT
+,		cast(NETAMT as decimal(28,5)) as NETAMT
+,		cast(EXTRADISC as decimal(28,5)) as EXTRADISC
+,		cast(TOT_ITEMSDISCAMT as decimal(28,5)) as TOT_ITEMSDISCAMT
+,		cast(TAXAMOUNT as decimal(28,5)) as TAXAMOUNT
+,		cast(TOTAMT as decimal(28,5)) as TOTAMT
+,		SIGNTYP
+,		SIGNVAL
+,		cast(SOPNUMBER as nvarchar(50)) as SOPNUMBER
+,		SOPTYPE
 from openquery([PROD],'
 select  ''0'' as ISS_BRANCHID --0
-,		eng_header.ISS_COUNTRY --1
+ ,		eng_header.ISS_COUNTRY --1
  ,		eng_header.ISS_GOVERNATE --2
  ,		eng_header.ISS_REGIONCITY --3
  ,		eng_header.ISS_STREET --4
@@ -2118,21 +2118,21 @@ select  ''0'' as ISS_BRANCHID --0
  ,		eng_header.ISS_TYPE		--11
  ,		eng_header.ISS_ID		--12
  ,		eng_header.ISS_NAME		--13
-,		eng_header.RECV_COUNTRY	--14
-,		eng_header.RECV_GOVERNATE	--15
-,		eng_header.RECV_REGIONCITY	--16
-,		eng_header.RECV_STREET	--17
-,		eng_header.RECV_BLDGNO	--18
-,		eng_header.RECV_POSTAL		--19
-,		eng_header.RECV_FLOOR		--20
-,		eng_header.RECV_ROOM		--21
-,		eng_header.RECV_LANDMARK	--22
-,		eng_header.RECV_ADDINFO		--23
-,		eng_header.RECV_TYPE		--24
-,		eng_header.RECV_ID		--25
-,		eng_header.RECV_NAME	--26
-,		eng_header.DOC_TYPE		--27
-,		eng_header.DOC_TYPVER	--28
+ ,		eng_header.RECV_COUNTRY	--14
+ ,		eng_header.RECV_GOVERNATE	--15
+ ,		eng_header.RECV_REGIONCITY	--16
+ ,		eng_header.RECV_STREET	--17
+ ,		eng_header.RECV_BLDGNO	--18
+ ,		eng_header.RECV_POSTAL		--19
+ ,		eng_header.RECV_FLOOR		--20
+ ,		eng_header.RECV_ROOM		--21
+ ,		eng_header.RECV_LANDMARK	--22
+ ,		eng_header.RECV_ADDINFO		--23
+ ,		eng_header.RECV_TYPE		--24
+ ,		eng_header.RECV_ID		--25
+ ,		eng_header.RECV_NAME	--26
+ ,		eng_header.DOC_TYPE		--27
+ ,		eng_header.DOC_TYPVER	--28
 ,		eng_header.DOC_DATETIMEISS	--29
 ,		eng_header.DOC_TAXPAYERACT	--30
 ,		eng_header.DOC_INTERNALID	--31
@@ -2301,8 +2301,161 @@ select  ''0'' as ISS_BRANCHID
 ,		eng_header.DOCCURRENCYCODE
 ,		eng_header.DOCCURRENCYXCHANGERATE
 from xxcite_tax_headers_v eng_header') as ora_header
-where doc_internalid = @DOC_InternalId and ISS_ID = @ISS_ID
+where cast(ora_header.doc_internalid as nvarchar(50)) = @DOC_InternalId
+and   ISS_ID = @ISS_ID
 order by DOC_INTERNALID;
+
+select cast(LIN_INTERNALCODE as nvarchar(50)) as LIN_INTERNALCODE
+,		cast(LIN_UNTTYP as nvarchar(30)) as LIN_UNTTYP
+,		cast(isnull(LIN_QTY,'0') as decimal(28,5)) as LIN_QTY
+,		cast(isnull(LIN_CURSOLD,'0') as nvarchar(3)) as LIN_CURSOLD
+,		cast(isnull(LIN_AMTEGP,'0') as decimal(28,5)) as LIN_AMTEGP
+,		cast(isnull(LIN_AMTSOLD,'0') as decimal(28,5)) as LIN_AMTSOLD
+,		cast(isnull(LIN_CURREXCH,'0') as decimal(28,5)) as LIN_CURREXCH
+,		cast(isnull(SAL_TOT,'0') as decimal(28,5)) as SAL_TOT
+,		cast(isnull(VAL_DIFF,'0') as decimal(28,5)) as VAL_DIFF
+,		cast(isnull(TAXABLE_FEE,'0') as decimal(28,5)) as TAXABLE_FEE
+,		cast(isnull(DISC_RATE,'0') as decimal(28,5)) as DISC_RATE
+,		cast(isnull(DISC_AMT,'0') as decimal(28,5)) as DISC_AMT
+,		cast(isnull(NET_TOT,'0') as decimal(28,5)) as NET_TOT
+,		cast(isnull(LIN_TAXAMOUNT,'0') as decimal(28,5)) as LIN_TAXAMOUNT
+,		cast(isnull(ITM_DISC,'0') as decimal(28,5)) as ITM_DISC
+,		cast(LIN_ERPUNTTYP as nvarchar(30)) as LIN_ERPUNTTYP
+,		cast(isnull(TOTAL,'0') as decimal(28,5)) as TOTAL
+,		cast(LNITMSEQNM as nvarchar(50)) as LINE_ITEM_SEQ
+,		LIN_ITEMCODE
+,		cast(SOPNUMBER as nvarchar(50)) as SOPNUMBER
+,		LIN_ITEMTYPE
+,		cast(LIN_DESC as nvarchar(500)) as LIN_DESC
+from openquery([PROD],'
+select	eng_line.LIN_INTERNALCODE	--0
+,		eng_line.LIN_UNTTYP		--1
+,		eng_line.LIN_QTY		--2
+,		eng_line.LIN_CURSOLD	--3
+,		eng_line.LIN_AMTEGP		--4
+,		eng_line.LIN_AMTSOLD	--5
+,		eng_line.LIN_CURREXCH	--6
+,		eng_line.SAL_TOT		--7
+,		eng_line.VAL_DIFF		--8
+,		eng_line.TAXABLE_FEE	--9
+,		eng_line.DISC_RATE		--10
+,		eng_line.DISC_AMT		--11
+,		eng_line.NET_TOT		--12
+,		eng_line.LIN_TAXAMOUNT	--13
+,		eng_line.ITM_DISC		--14
+,		eng_line.LIN_ERPUNTTYP	--15
+,		eng_line.TOTAL			--16
+,		cast(eng_line.LNITMSEQNM as varchar2(40))	as LNITMSEQNM	--17
+,		cast(eng_line.LIN_ITEMCODE as varchar2(100)) as LIN_ITEMCODE	--18
+,		eng_line.SOPNUMBER	--19
+,		eng_line.LIN_ITEMTYPE	--20
+,		eng_header.iss_id		--21
+,		eng_line.LIN_DESC
+from xxcite_tax_lines_eng_v eng_line
+join xxcite_tax_headers_eng_v eng_header
+	on eng_line.sopnumber = eng_header.sopnumber
+union all
+select	eng_line.LIN_INTERNALCODE
+,		eng_line.LIN_UNTTYP
+,		eng_line.LIN_QTY
+,		eng_line.LIN_CURSOLD
+,		eng_line.LIN_AMTEGP
+,		eng_line.LIN_AMTSOLD
+,		eng_line.LIN_CURREXCH
+,		eng_line.SAL_TOT
+,		eng_line.VAL_DIFF
+,		eng_line.TAXABLE_FEE
+,		eng_line.DISC_RATE
+,		eng_line.DISC_AMT
+,		eng_line.NET_TOT
+,		eng_line.LIN_TAXAMOUNT
+,		eng_line.ITM_DISC
+,		eng_line.LIN_ERPUNTTYP
+,		eng_line.TOTAL
+,		cast(eng_line.LNITMSEQNM as varchar2(40))	as LNITMSEQNM
+,		cast(eng_line.LIN_ITEMCODE as varchar2(100)) as LIN_ITEMCODE
+,		eng_line.SOPNUMBER
+,		eng_line.LIN_ITEMTYPE
+,		eng_header.iss_id
+,		eng_line.LIN_DESC
+from xxcite_tax_lines_home_v eng_line
+join xxcite_tax_headers_home_v eng_header
+	on eng_line.sopnumber = eng_header.sopnumber
+union all
+select	eng_line.LIN_INTERNALCODE
+,		eng_line.LIN_UNTTYP
+,		eng_line.LIN_QTY
+,		eng_line.LIN_CURSOLD
+,		eng_line.LIN_AMTEGP
+,		eng_line.LIN_AMTSOLD
+,		eng_line.LIN_CURREXCH
+,		eng_line.SAL_TOT
+,		eng_line.VAL_DIFF
+,		eng_line.TAXABLE_FEE
+,		eng_line.DISC_RATE
+,		eng_line.DISC_AMT
+,		eng_line.NET_TOT
+,		eng_line.LIN_TAXAMOUNT
+,		eng_line.ITM_DISC
+,		eng_line.LIN_ERPUNTTYP
+,		eng_line.TOTAL
+,		cast(eng_line.LNITMSEQNM as varchar2(40))	as LNITMSEQNM
+,		cast(eng_line.LIN_ITEMCODE as varchar2(100)) as LIN_ITEMCODE
+,		eng_line.SOPNUMBER
+,		eng_line.LIN_ITEMTYPE
+,		eng_header.iss_id
+,		eng_line.LIN_DESC
+from xxcite_tax_lines_v eng_line
+join xxcite_tax_headers_v eng_header
+	on eng_line.sopnumber = eng_header.sopnumber
+') ora_lines
+where cast(ora_lines.SOPNUMBER as nvarchar(50)) = @DOC_InternalId
+and   ISS_ID = @ISS_ID
+order by SOPNUMBER,LINE_ITEM_SEQ;
+
+select cast(TAXPERCENT as decimal(28,5)) as TAXPERCENT
+,		cast(TAXTYPE as nvarchar(30)) as TAXTYPE
+,		cast(TAXSUBTYPE as nvarchar(50)) as TAXSUBTYPE
+,		cast(AMT as decimal(28,5)) as AMT
+,		cast(LINEITMSEQ as nvarchar(50)) as LINE_ITEM_SEQ
+,		cast(SOPNUMBER as nvarchar(50)) as SOPNUMBER
+from openquery([PROD],'
+select  eng_details.TAXPERCENT	--0
+,		eng_details.TAXTYPE	--1
+,		eng_details.TAXSUBTYPE	--2
+,		eng_details.AMT	--3
+,		eng_details.LINEITMSEQ	--4
+,		eng_details.sopnumber	--5
+,		eng_header.ISS_ID		--6
+from xxcite_tax_details_eng_v eng_details
+join xxcite_tax_headers_eng_v eng_header
+	on eng_header.sopnumber = eng_details.sopnumber
+union all
+select  eng_details.TAXPERCENT
+,		eng_details.TAXTYPE
+,		eng_details.TAXSUBTYPE
+,		eng_details.AMT
+,		eng_details.LINEITMSEQ
+,		eng_details.sopnumber
+,		eng_header.ISS_ID
+from xxcite_tax_details_home_v eng_details
+join xxcite_tax_headers_home_v eng_header
+	on eng_details.sopnumber = eng_header.sopnumber
+union all
+select  eng_details.TAXPERCENT
+,		eng_details.TAXTYPE
+,		eng_details.TAXSUBTYPE
+,		eng_details.AMT
+,		eng_details.LINEITMSEQ
+,		eng_details.sopnumber
+,		eng_header.ISS_ID
+from xxcite_tax_details_v eng_details
+join xxcite_tax_headers_v eng_header
+	on eng_details.sopnumber = eng_header.sopnumber
+') ora_details
+where cast(ora_details.sopnumber as nvarchar(50)) = @DOC_InternalId
+and   ISS_ID = @ISS_ID
+order by SOPNUMBER,LINE_ITEM_SEQ;
 end
 go
 use EInvoice_Test

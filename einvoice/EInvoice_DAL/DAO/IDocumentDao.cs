@@ -30,6 +30,7 @@ namespace EInvoice.DAL.DAO
             string proformaInvoiceNumber,
             string status
         );
+        IList<Document> FindDocumentInOracleByInternalId(string internalId, Issuer issuer);
     }
     
 }

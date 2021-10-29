@@ -35,11 +35,14 @@ namespace EInvoice.DesktopUI
             this.label2 = new System.Windows.Forms.Label();
             this.txtInvoiceCount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(14, 14);
             this.dataGridView1.Name = "dataGridView1";
@@ -60,7 +63,7 @@ namespace EInvoice.DesktopUI
             // 
             this.txtTotalAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTotalAmount.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalAmount.Location = new System.Drawing.Point(867, 527);
+            this.txtTotalAmount.Location = new System.Drawing.Point(867, 543);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
             this.txtTotalAmount.Size = new System.Drawing.Size(268, 25);
@@ -71,7 +74,7 @@ namespace EInvoice.DesktopUI
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(765, 533);
+            this.label2.Location = new System.Drawing.Point(765, 549);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 17);
             this.label2.TabIndex = 7;
@@ -81,7 +84,7 @@ namespace EInvoice.DesktopUI
             // 
             this.txtInvoiceCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtInvoiceCount.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtInvoiceCount.Location = new System.Drawing.Point(124, 525);
+            this.txtInvoiceCount.Location = new System.Drawing.Point(124, 541);
             this.txtInvoiceCount.Name = "txtInvoiceCount";
             this.txtInvoiceCount.ReadOnly = true;
             this.txtInvoiceCount.Size = new System.Drawing.Size(228, 25);
@@ -92,17 +95,25 @@ namespace EInvoice.DesktopUI
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 527);
+            this.label1.Location = new System.Drawing.Point(12, 543);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Invoice Count:";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(14, 515);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1119, 10);
+            this.progressBar1.TabIndex = 9;
             // 
             // DocumentSearchResultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 639);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.txtTotalAmount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtInvoiceCount);
@@ -130,5 +141,6 @@ namespace EInvoice.DesktopUI
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtInvoiceCount;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

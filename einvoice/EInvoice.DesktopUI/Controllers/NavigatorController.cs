@@ -119,12 +119,15 @@ namespace EInvoice.DesktopUI.Controllers
             IList<InvoiceSummaryView> data = _documentDao.GetInvoiceSummary(model.APIEnvironment.Id.Value, model.Issuer.Id,model.SelectedReceiver.InternalId==null?"%":model.SelectedReceiver.Name,model.IssueDateFrom,model.IssueDateTo);
             return data;
         }
-        public void DownloadPdfFile(string fileName,string uuid,APIEnvironment env,Issuer issuer)
+        public void DownloadPdfFile(string fileName,string uuid,APIEnvironment env, IssuerAPIAccessDetails accessDetails)
         {
-            IssuerAPIAccessDetails accessDetails = ObjectFactory.IssuerAPIAccessDetailsDao.Find(env, issuer);
             var _eInvoiceAPIProxy = new EInvoiceAPIRestSharpProxy(env, accessDetails.ClientId, accessDetails.ClientSecret);
             byte[] data = _eInvoiceAPIProxy.GetDocumentPrintOut(uuid);
             File.WriteAllBytes(fileName, data);
+        }
+        public IssuerAPIAccessDetails GetIssuerAPIAccessDetails(APIEnvironment env,Issuer issuer)
+        {
+            return ObjectFactory.IssuerAPIAccessDetailsDao.Find(env, issuer);
         }
         public SubmitDocumentFormViewModel SubmitDocuments(Issuer issuer,APIEnvironment env)
         {
@@ -203,7 +206,7 @@ namespace EInvoice.DesktopUI.Controllers
             sb.AppendLine("<body>");
             sb.AppendLine($"<h2>Rejected Documents {DateTime.Now.ToShortDateString()}</h2>");
             sb.AppendLine("<p>");
-            sb.AppendLine("<table><tr><th>Internal Id</th><th>Error</th>");
+            sb.AppendLine("<table border = \"1\"><tr><th>Internal Id</th><th>Error</th>");
             foreach(var rej in documentRejecteds)
             {
                 sb.AppendLine("<tr>");
@@ -216,27 +219,65 @@ namespace EInvoice.DesktopUI.Controllers
             sb.AppendLine("</html>");
             File.WriteAllText(file, sb.ToString());
         }
+        public void ProcessCrashData(Issuer issuer,APIEnvironment environment)
+        {
+            if (Directory.Exists(Environment.CurrentDirectory+"\\CrachData"))
+            {
+                string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\CrachData", "*.txt");
+                IssuerAPIAccessDetails accessDetails = ObjectFactory.IssuerAPIAccessDetailsDao.Find(environment, issuer);
+                var proxy = new EInvoiceAPIRestSharpProxy(environment, accessDetails.ClientId, accessDetails.ClientSecret);
+                foreach (string file in files)
+                {
+                    using(StreamReader reader = new StreamReader(file))
+                    {
+                        while (!reader.EndOfStream)
+                        {
+                            string line = reader.ReadLine();
+                            string[] parts = line.Split('\t');
+                            if (parts.Length == 3)
+                            {
+                                Document doc = _documentDao.FindByInternalId(parts[2]).FirstOrDefault()?? _documentDao.FindDocumentInOracleByInternalId(parts[2], issuer).FirstOrDefault();
+                                if (doc != null)
+                                {
+                                    if (doc.Id == null)
+                                    {
+                                        _documentDao.Insert(doc);
+                                    }
+                                    var docExtended = proxy.GetDocument(parts[1]);
+                                    _documentDao.SaveOrUpdateDocumentSubmission(new DocumentSubmission() { APIEnvironment = environment, Document = doc, Status = docExtended.status, SubmissionDate = docExtended.dateTimeReceived ?? DateTime.Now, SubmissionUUID = docExtended.submissionUUID, UUID = docExtended.uuid });
+                                }
+                            }
+                        }
+                    }
+                    File.Delete(file);
+                }
+            }
+        }
         public IList<DocumentRejected> SubmitDocument(SubmitDocumentFormViewModel model)
         {
-                IList<DocumentRejected> documentRejecteds = new List<DocumentRejected>();
-                IList<SubmitDocumentViewModel> found = (from s in model.Submits where s.Submit select s).ToList();
-                IList<DocumentSubmission> submissions = new List<DocumentSubmission>();
-                IssuerAPIAccessDetails accessDetails = ObjectFactory.IssuerAPIAccessDetailsDao.Find(model.APIEnvironment, model.Issuer);
+            IList<DocumentRejected> documentRejecteds = new List<DocumentRejected>();
+            IList<SubmitDocumentViewModel> found = (from s in model.Submits where (s.Submit && string.IsNullOrEmpty(s.StatusOnPortal))||s.StatusErrorOnPortal=="Invalid"||s.StatusErrorOnPortal=="Rejected" select s).ToList();
+            IList<DocumentSubmission> submissions = new List<DocumentSubmission>();
+            IList<SubmissionResult> results = new List<SubmissionResult>();
+            IssuerAPIAccessDetails accessDetails = ObjectFactory.IssuerAPIAccessDetailsDao.Find(model.APIEnvironment, model.Issuer);
+            var proxy = new EInvoiceAPIRestSharpProxy(model.APIEnvironment, accessDetails.ClientId, accessDetails.ClientSecret);
+            try
+            {
                 model.ProgressBarVisible = true;
                 model.SubmitButtonEnabled = false;
                 DocumentSigner documentSigner = new DocumentSigner();
                 IList<Document> docs = (from doc in found select doc.Document).ToList();
-                var proxy = new EInvoiceAPIRestSharpProxy(model.APIEnvironment, accessDetails.ClientId, accessDetails.ClientSecret);
+                
                 foreach (var item in found)
                 {
-                    if(item.Document.DateTimeIssued != item.IssueDate)
+                    if (item.Document.DateTimeIssued != item.IssueDate)
                         item.Document.DateTimeIssued = item.IssueDate;
                 }
                 documentSigner.Sign(docs, accessDetails.SecurityToken, AppSettingsController.Settings.DLLPath, AppSettingsController.Settings.TokenIssuerName);
                 foreach (var item in found)
                 {
-                    
-                    string jsonText = JsonConvert.SerializeObject(item.Document , Formatting.Indented, new JsonSerializerSettings() { DateFormatString = "yyyy-MM-ddTHH:mm:ssZ" });
+
+                    string jsonText = JsonConvert.SerializeObject(item.Document, Formatting.Indented, new JsonSerializerSettings() { DateFormatString = "yyyy-MM-ddTHH:mm:ssZ" });
                     if (AppSettingsController.Settings.EnableFileGeneration)
                     {
                         if (!Directory.Exists(Environment.CurrentDirectory + "\\" + AppSettingsController.Settings.SerializedFolderName))
@@ -254,6 +295,7 @@ namespace EInvoice.DesktopUI.Controllers
                     //documentSigner.Sign(item.Document, accessDetails.SecurityToken, AppSettingsController.Settings.DLLPath, AppSettingsController.Settings.TokenIssuerName);
                     jsonText = JsonConvert.SerializeObject(new { documents = new List<Document>() { item.Document } }, Formatting.Indented, new JsonSerializerSettings() { DateFormatString = "yyyy-MM-ddTHH:mm:ssZ" });
                     var result = proxy.SubmitDocuments(jsonText);
+                    results.Add(result);
                     foreach (DocumentRejected documentRejected in result.rejectedDocuments)
                     {
                         documentRejecteds.Add(documentRejected);
@@ -261,7 +303,7 @@ namespace EInvoice.DesktopUI.Controllers
                         submit.StatusOnPortal = "Rejected";
                         model.MessageBoardText.AppendLine("Document Rejected");
                         model.MessageBoardText.AppendLine($"Id: {documentRejected.internalId}");
-                        model.MessageBoardText.AppendLine($"Error: {documentRejected.error.Message??documentRejected.error.Details[0].Message}");
+                        model.MessageBoardText.AppendLine($"Error: {documentRejected.error.Message ?? documentRejected.error.Details[0].Message}");
                         model.MessageBoardText.AppendLine("==============================================================================================");
                         if (AppSettingsController.Settings.EnableFileGeneration)
                         {
@@ -293,32 +335,70 @@ namespace EInvoice.DesktopUI.Controllers
                         submissions.Add(submission);
                     }
                     model.ProgressBarValue += 1;
-                }
-            model.ProgressBarValue = 0;
-            model.ProgressBarMin = 0;
-            model.ProgressBarMax = submissions.Count;
-            System.Threading.Thread.Sleep(5000);
-            foreach (DocumentSubmission documentSubmission in submissions)
+                }              
+                return documentRejecteds;
+            }
+            catch
             {
-                var docExtended = proxy.GetDocument(documentSubmission.UUID);
-                documentSubmission.Status = docExtended.status;
-                _documentDao.SaveOrUpdateDocumentSubmission(documentSubmission);
-                var temp = (from xyz in model.Submits where xyz.UUID == documentSubmission.UUID select xyz).FirstOrDefault();
-                if (temp != null)
+                if (!Directory.Exists(Environment.CurrentDirectory + "\\CrashData"))
                 {
-                    temp.StatusOnPortal = docExtended.status;
-                    if (temp.StatusOnPortal == "Invalid")
-                        temp.PortalValidationResult = docExtended.validationResults;
-                    if (docExtended.status == "Invalid")
+                    Directory.CreateDirectory(Environment.CurrentDirectory + "\\CrashData");
+                }
+                if (results != null && results.Count > 0)
+                {
+                    using(StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\CrashData" + DateTime.Now.ToString("dd_MM_YYYY") + ".txt"))
                     {
-                        foreach(var ttt in temp.PortalValidationResult.validationSteps)
-                            if(ttt.status == "Invalid")
-                                temp.StatusErrorOnPortal += ttt.error.Message+"\n";
+                        foreach(var result in results)
+                        {
+                            foreach (var acc in result.acceptedDocuments) 
+                            {
+                                sw.WriteLine(result.submissionId + "\t" + acc.uuid + "\t" +acc.internalId);
+                            }
+                        }
                     }
                 }
-                model.ProgressBarValue += 1;
+                throw;
             }
-            return documentRejecteds;
+            finally
+            {
+                model.ProgressBarValue = 0;
+                model.ProgressBarMin = 0;
+                model.ProgressBarMax = submissions.Count;
+                System.Threading.Thread.Sleep(5000);
+                foreach (DocumentSubmission documentSubmission in submissions)
+                {
+                    var docExtended = proxy.GetDocument(documentSubmission.UUID);
+                    documentSubmission.Status = docExtended.status;
+                    _documentDao.SaveOrUpdateDocumentSubmission(documentSubmission);
+                    var temp = (from xyz in model.Submits where xyz.UUID == documentSubmission.UUID select xyz).FirstOrDefault();
+                    if (temp != null)
+                    {
+                        temp.StatusOnPortal = docExtended.status;
+                        if (temp.StatusOnPortal == "Invalid")
+                            temp.PortalValidationResult = docExtended.validationResults;
+                        if (docExtended.status == "Invalid")
+                        {
+                            foreach (var ttt in temp.PortalValidationResult.validationSteps)
+                                if (ttt.status == "Invalid")
+                                    temp.StatusErrorOnPortal += ttt.error.Message + "\n";
+                        }
+                    }
+                    model.ProgressBarValue += 1;
+                }
+                found = (from s in model.Submits where (s.Submit && string.IsNullOrEmpty(s.StatusOnPortal)) || s.StatusErrorOnPortal == "Invalid" || s.StatusErrorOnPortal == "Rejected" select s).ToList();
+                if(found.Count > 0)
+                {
+                    model.ProgressBarValue = 0;
+                    model.ProgressBarVisible = false;
+                    model.ProgressBarMin = 0;
+                    model.ProgressBarMax = found.Count - 1;
+                    model.SubmitButtonEnabled = true;
+                }
+                else
+                {
+                    model.SubmitButtonEnabled = false;
+                }
+            }
         }
     }
 }

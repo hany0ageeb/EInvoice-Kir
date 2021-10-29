@@ -85,7 +85,7 @@ namespace EInvoice.DAL.DAO
                 command.Parameters.Add(command.CreateParameter(parameterName: "@CustomerName", parameterValue:receiver.Name,dbType:DbType.String));
             command.Parameters.Add(command.CreateParameter(parameterName: "@TaxpayerId", parameterValue: issuer.Id, dbType: DbType.String));
             command.Parameters.Add(command.CreateParameter(parameterName: "@APIEnvironmentId", parameterValue: APIEnvironmentId, dbType: DbType.Int32));
-            if (status != null && status != "ALL")
+            if (!string.IsNullOrEmpty(proformaInvoiceNumber) && status != "ALL")
                 command.Parameters.Add(command.CreateParameter(parameterName: "@status", parameterValue:status,dbType:DbType.String));
             if (!string.IsNullOrEmpty(proformaInvoiceNumber))
                 command.Parameters.Add(command.CreateParameter(parameterName: "@ProformaInvoiceNumber",parameterValue:proformaInvoiceNumber,dbType:DbType.String));
@@ -520,7 +520,7 @@ namespace EInvoice.DAL.DAO
                     doc.SalesOrderReference = docHeader.Field<string>("DOC_SOREF");
                     doc.SalesOrderDescription = docHeader.Field<string>("DOC_SODESC");
                     doc.TaxpayerActivityCode = docHeader.Field<string>("DOC_TAXPAYERACT");
-                    doc.TotalAmount = Convert.ToDouble(docHeader.Field<decimal>("TOTAMT"));
+                    doc.TotalAmount = Convert.ToDouble(docHeader.Field<decimal?>("TOTAMT")??0);
                     doc.TotalSalesAmount = Convert.ToDouble(docHeader.Field<decimal>("TOTALSALES"));
                     doc.TotalDiscountAmount = Convert.ToDouble(docHeader.Field<decimal>("TOTALDISCAMT"));
                     doc.NetAmount = Convert.ToDouble(docHeader.Field<decimal>("NETAMT"));
@@ -657,6 +657,167 @@ namespace EInvoice.DAL.DAO
                 if (_connection.State != ConnectionState.Closed)
                     _connection.Close();
             }
+        }
+        public IList<Document> FindDocumentInOracleByInternalId(string internalId, Issuer issuer)
+        {
+            IList<Document> documents = new List<Document>();
+            DbCommand selectCommand = _connection.CreateCommand("[dbo].[GetDocumentFromOracleByInternalId]", CommandType.StoredProcedure);
+            selectCommand.Parameters.Add(selectCommand.CreateParameter(parameterName: "@DOC_InternalId", parameterValue: internalId, dbType: DbType.String));
+            selectCommand.Parameters.Add(selectCommand.CreateParameter(parameterName: "@ISS_ID", parameterValue: issuer.Id, dbType: DbType.String));
+            if (_connection.State != ConnectionState.Open)
+                _connection.Open();
+            DbDataAdapter adapter = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
+            selectCommand.CommandTimeout = 0;
+            adapter.SelectCommand = selectCommand;
+            DataSet dataSet = new DataSet("DocumentsNew");
+            adapter.Fill(dataSet);
+            var docHeaders = from doc in dataSet.Tables["table"].AsEnumerable() select doc;
+            foreach (var docHeader in docHeaders)
+            {
+                var docTaxTotals = new List<TaxTotal>();
+                Document doc = new Document();
+                doc.Id = null;
+                doc.DateTimeIssued = docHeader.Field<DateTime>("DOC_DATETIMEISS");
+                doc.DocumentType = docHeader.Field<string>("DOC_TYPE");
+                doc.DocumentTypeVersion = docHeader.Field<string>("DOC_TYPVER");
+                doc.InternalId = docHeader.Field<string>("DOC_INTERNALID");
+                doc.ProformaInvoiceNumber = docHeader.Field<string>("PROFORMAINVOICENUMBER");
+                doc.PurchaseOrderDescription = docHeader.Field<string>("DOC_PODESC");
+                doc.PurchaseOrderReference = docHeader.Field<string>("DOC_POREF");
+                doc.SalesOrderReference = docHeader.Field<string>("DOC_SOREF");
+                doc.SalesOrderDescription = docHeader.Field<string>("DOC_SODESC");
+                doc.TaxpayerActivityCode = docHeader.Field<string>("DOC_TAXPAYERACT");
+                doc.TotalAmount = Convert.ToDouble(docHeader.Field<decimal>("TOTAMT"));
+                doc.TotalSalesAmount = Convert.ToDouble(docHeader.Field<decimal>("TOTALSALES"));
+                doc.TotalDiscountAmount = Convert.ToDouble(docHeader.Field<decimal>("TOTALDISCAMT"));
+                doc.NetAmount = Convert.ToDouble(docHeader.Field<decimal>("NETAMT"));
+                doc.TotalItemsDiscountAmount = Convert.ToDouble(docHeader.Field<decimal>("TOT_ITEMSDISCAMT"));
+                doc.ExtraDiscountAmount = Convert.ToDouble(docHeader.Field<decimal>("EXTRADISC"));
+                doc.Delivery = new Delivery()
+                {
+                    Approach = docHeader.Field<string>("DEL_APPROACH"),
+                    CountryOfOrigin = docHeader.Field<string>("DEL_COUNTRY"),
+                    DateValidity = docHeader.Field<DateTime?>("DEL_DTVALID")?.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                    ExportPort = docHeader.Field<string>("DEL_EXP"),
+                    GrossWeight = Convert.ToInt32(docHeader.Field<decimal?>("DEL_GROSSWGHT") ?? 0),
+                    NetWeight = Convert.ToInt32(docHeader.Field<decimal?>("DEL_NETWGHT") ?? 0),
+                    Packaging = docHeader.Field<string>("DEL_PACK"),
+                    Terms = docHeader.Field<string>("DEL_TERMS")
+                };
+                doc.Payment = new Payment()
+                {
+                    SwiftCode = "",
+                    Terms = docHeader.Field<string>("PAY_TERMS"),
+                    BankAccountIBAN = "",
+                    BankAccountNo = "",
+                    BankAddress = "",
+                    BankName = ""
+                };
+                doc.Issuer = new Issuer()
+                {
+                    Id = docHeader.Field<string>("ISS_ID"),
+                    Name = docHeader.Field<string>("ISS_NAME"),
+                    Type = docHeader.Field<string>("ISS_TYPE"),
+                    Address = new IssuerAddress()
+                    {
+                        BranchId = docHeader.Field<string>("ISS_BRANCHID"),
+                        BuildingNumber = docHeader.Field<string>("ISS_BLDGNO"),
+                        AdditionalInformation = docHeader.Field<string>("ISS_ADDINFO"),
+                        Floor = docHeader.Field<string>("ISS_FLOOR"),
+                        Country = docHeader.Field<string>("ISS_COUNTRY"),
+                        Governate = docHeader.Field<string>("ISS_GOVERNATE"),
+                        Landmark = docHeader.Field<string>("ISS_LANDMARK"),
+                        PostalCode = docHeader.Field<string>("ISS_POSTAL"),
+                        RegionCity = docHeader.Field<string>("ISS_REGIONCITY"),
+                        Room = docHeader.Field<string>("ISS_ROOM"),
+                        Street = docHeader.Field<string>("ISS_STREET")
+                    }
+                };
+                doc.Receiver = new Receiver()
+                {
+                    Id = docHeader.Field<string>("RECV_ID"),
+                    Type = docHeader.Field<string>("RECV_TYPE").ToReceiverType(),
+                    Name = docHeader.Field<string>("RECV_NAME"),
+                    Address = new ReceiverAddress()
+                    {
+                        AdditionalInformation = docHeader.Field<string>("RECV_ADDINFO"),
+                        BuildingNumber = docHeader.Field<string>("RECV_BLDGNO"),
+                        Country = docHeader.Field<string>("RECV_COUNTRY"),
+                        Floor = docHeader.Field<string>("RECV_FLOOR"),
+                        Governate = docHeader.Field<string>("RECV_GOVERNATE"),
+                        Landmark = docHeader.Field<string>("RECV_LANDMARK"),
+                        PostalCode = docHeader.Field<string>("RECV_POSTAL"),
+                        RegionCity = docHeader.Field<string>("RECV_REGIONCITY"),
+                        Room = docHeader.Field<string>("RECV_ROOM"),
+                        Street = docHeader.Field<string>("RECV_STREET")
+                    },
+                    InternalId = _receiverDao?.FindReceiverId(docHeader.Field<string>("RECV_NAME"))
+                };
+                //Add Receiver if not exists
+                if (doc.Receiver.InternalId == null)
+                {
+                    _receiverDao.Insert(doc.Receiver);
+                }
+                var docLines = from line in dataSet.Tables["table1"].AsEnumerable() where line.Field<string>("SOPNUMBER") == doc.InternalId select line;
+                foreach (var docLine in docLines)
+                {
+                    InvoiceLine invoiceLine = new InvoiceLine()
+                    {
+                        Description = docLine.Field<string>("LIN_DESC"),
+                        InternalCode = docLine.Field<string>("LIN_INTERNALCODE"),
+                        ItemCode = docLine.Field<string>("LIN_ITEMCODE"),
+                        ItemType = docLine.Field<string>("LIN_ITEMTYPE"),
+                        Quantity = Convert.ToDouble(docLine.Field<decimal>("LIN_QTY")),
+                        ItemsDiscount = Convert.ToDouble(docLine.Field<decimal>("ITM_DISC")),
+                        ValueDifference = Convert.ToDouble(docLine.Field<decimal>("VAL_DIFF")),
+                        NetTotal = Convert.ToDouble(docLine.Field<decimal>("NET_TOT")),
+                        UnitType = docLine.Field<string>("LIN_UNTTYP"),
+                        SalesTotal = Convert.ToDouble(docLine.Field<decimal>("SAL_TOT")),
+                        TotalTaxableFees = Convert.ToDouble(docLine.Field<decimal>("TAXABLE_FEE")),
+                        Discount = new Discount()
+                        {
+                            Amount = Convert.ToDouble(docLine.Field<decimal>("DISC_AMT")),
+                            Rate = Convert.ToDouble(Math.Round(docLine.Field<decimal>("DISC_RATE")))
+                        },
+                        Total = Convert.ToDouble(docLine.Field<decimal>("TOTAL")),
+                        UnitValue = new Value()
+                        {
+                            AmountEGP = Convert.ToDouble(docLine.Field<decimal>("LIN_AMTEGP")),
+                            AmountSold = Convert.ToDouble(docLine.Field<decimal>("LIN_AMTSOLD")),
+                            CurrencyExchangeRate = Convert.ToDouble(docLine.Field<decimal>("LIN_CURREXCH")),
+                            CurrencySold = docLine.Field<string>("LIN_CURSOLD")
+                        },
+                    };
+                    var linetaxDetails = from det in dataSet.Tables["table2"].AsEnumerable()
+                                         where det.Field<string>("SOPNUMBER") == docLine.Field<string>("SOPNUMBER") && det.Field<string>("LINE_ITEM_SEQ") == docLine.Field<string>("LINE_ITEM_SEQ")
+                                         select det;
+                    foreach (var detail in linetaxDetails)
+                    {
+                        TaxableItem taxableItem = new TaxableItem()
+                        {
+                            Amount = Convert.ToDouble(detail.Field<decimal>("AMT")),
+                            Rate = Convert.ToDouble(detail.Field<decimal>("TAXPERCENT")),
+                            TaxType = detail.Field<string>("TAXTYPE"),
+                            SubType = detail.Field<string>("TAXSUBTYPE")
+                        };
+                        var found = docTaxTotals.Find(tt => { return tt.TaxType == taxableItem.TaxType; });
+                        if (found != null)
+                            found.Amount += taxableItem.Amount;
+                        else
+                            docTaxTotals.Add(new TaxTotal() { TaxType = taxableItem.TaxType, Amount = taxableItem.Amount });
+                        invoiceLine.TaxableItems.Add(taxableItem);
+                    }
+                    doc.InvoiceLines.Add(invoiceLine);
+                }
+                //FixTableTax(doc);
+                foreach (TaxTotal taxTotal in docTaxTotals)
+                {
+                    taxTotal.Amount = Math.Round(taxTotal.Amount, 5);
+                }
+                doc.TaxTotals = docTaxTotals;
+                documents.Add(doc);
+            }
+            return documents;
         }
         public IList<Document> GetUnsubmittedDocuments(Issuer issuer, APIEnvironment environment)
         {

@@ -158,7 +158,7 @@ namespace SyncData
                             queryParameters = new QueryParameters()
                             {
                                 dateFrom = DateTime.Parse("2021-04-15T00:00:00Z"),
-                                dateTo = DateTime.Parse("2021-09-30T23:59:00Z"),
+                                dateTo = DateTime.Parse("2021-10-11T23:59:00Z"),
                                 statuses = new List<string>() { "Valid" }
                             }
                         });
@@ -350,6 +350,15 @@ namespace SyncData
                 documentDao.SaveOrUpdateDocumentSubmission(submission);
             }
         }
+        public static void TestFindDocInOracleByInternalId()
+        {
+            IList<Document> docs = ObjectFactory.DocumentDao.FindDocumentInOracleByInternalId("306022", ObjectFactory.IssuerDao.Find("100507042"));
+            if (docs.Count == 1)
+            {
+                Console.WriteLine("Found Document");
+                Console.WriteLine(docs[0].ProformaInvoiceNumber);
+            }
+        }
         static void Main(string[] args)
         {
 
@@ -360,7 +369,7 @@ namespace SyncData
             //   LoadActivityCode(connection);
             //  LoadCountryCodes(connection);
             //}
-            //Sync_Old_DataBase_Engineering_With_Portal_Production();
+            //Sync_Old_DataBase_Engineering_With_Portal_Production("ENGTAXSRV");
             SyncDBWithAPI(ObjectFactory.CreateConnection(AppSettingsController.Settings));
             //SyncDBWithAPIUsingPackageRequest(connection);
             //SyncDatabaseWithPortalUsingSpecifiedRequests();
@@ -389,8 +398,8 @@ namespace SyncData
             //TryFakeCert();
             //CompareTwoSerializationMethods();
             //
-
-            TestSubmit();
+            //TestFindDocInOracleByInternalId();
+            //TestSubmit();
             Console.ReadLine();
         }
         public static void LoadActivityCode(DbConnection connection)
@@ -426,11 +435,11 @@ namespace SyncData
                     
                     try
                     {
-                        if (!DonePackages.Contains("101385"))
+                        if (!DonePackages.Contains("121460"))
                         {
-                            GetLostDocumentsFromPortal(issuer_eng, environment_PREPROD, "101385", connection);
+                            GetLostDocumentsFromPortal(issuer_eng, environment_PREPROD, "121460", connection);
                             ProcessedPackageCount++;
-                            DonePackages.Add("101385");
+                            DonePackages.Add("121460");
                         }
                         
                     }
@@ -440,10 +449,10 @@ namespace SyncData
                     }
                     try
                     {
-                        if (!DonePackages.Contains("75277"))
+                        if (!DonePackages.Contains("75480"))
                         { 
-                            GetLostDocumentsFromPortal(issuer_eng, environment_PROD, "75277", connection);
-                            DonePackages.Add("75277");
+                            GetLostDocumentsFromPortal(issuer_eng, environment_PROD, "75480", connection);
+                            DonePackages.Add("75480");
                             ProcessedPackageCount++;
                         }
                     }
@@ -453,10 +462,10 @@ namespace SyncData
                     }
                     try
                     {
-                        if (!DonePackages.Contains("101386"))
+                        if (!DonePackages.Contains("121461"))
                         {
-                            GetLostDocumentsFromPortal(issuer_elec, environment_PREPROD, "101386", connection);
-                            DonePackages.Add("101386");
+                            GetLostDocumentsFromPortal(issuer_elec, environment_PREPROD, "121461", connection);
+                            DonePackages.Add("121461");
                             ProcessedPackageCount++;
                         }
                     }
@@ -466,10 +475,10 @@ namespace SyncData
                     }
                     try
                     {
-                        if (!DonePackages.Contains("75278"))
+                        if (!DonePackages.Contains("75481"))
                         {
-                            GetLostDocumentsFromPortal(issuer_elec, environment_PROD, "75278", connection);
-                            DonePackages.Add("75278");
+                            GetLostDocumentsFromPortal(issuer_elec, environment_PROD, "75481", connection);
+                            DonePackages.Add("75481");
                             ProcessedPackageCount++;
                         }
                     }
@@ -480,10 +489,10 @@ namespace SyncData
                     
                     try
                     {
-                        if (!DonePackages.Contains("101384"))
+                        if (!DonePackages.Contains("121459"))
                         {
-                            GetLostDocumentsFromPortal(issuer_home, environment_PREPROD, "101384", connection);
-                            DonePackages.Add("101384");
+                            GetLostDocumentsFromPortal(issuer_home, environment_PREPROD, "121459", connection);
+                            DonePackages.Add("121459");
                             ProcessedPackageCount++;
                         }
                     }
@@ -494,10 +503,10 @@ namespace SyncData
                     
                     try
                     {
-                        if (!DonePackages.Contains("75276"))
+                        if (!DonePackages.Contains("75479"))
                         {
-                            GetLostDocumentsFromPortal(issuer_home, environment_PROD, "75276", connection);
-                            DonePackages.Add("75276");
+                            GetLostDocumentsFromPortal(issuer_home, environment_PROD, "75479", connection);
+                            DonePackages.Add("75479");
                             ProcessedPackageCount++;
                         }
                     }
@@ -759,10 +768,10 @@ namespace SyncData
             IInvoiceLineDao invoiceLineDao = new InvoiceLineDaoAdoImpl(connection, taxableItemDao);
             IReceiverDao receiverDao = new ReceiverDaoAdoImpl(connection);
             IDocumentDao documentDao = new DocumentDaoAdoImpl(connection, invoiceLineDao, receiverDao);
-            IList<Issuer> issuers = issuerDao.Find().Where(iss=>iss.Id== "310700655" || iss.Id== "310700655").ToList();
+            IList<Issuer> issuers = issuerDao.Find().ToList();
             foreach (Issuer issuer in issuers)
             {
-                IList<APIEnvironment> environments = environmentDao.Find();
+                IList<APIEnvironment> environments = environmentDao.Find().ToList();
                 Console.WriteLine($"Current Taxpayer: {issuer.Name}");
                 foreach (APIEnvironment environment in environments)
                 {

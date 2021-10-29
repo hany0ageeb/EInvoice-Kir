@@ -23,7 +23,9 @@ namespace EInvoice.Signature
             Pkcs11InteropFactories factories = new Pkcs11InteropFactories();
             using (var lib = factories.Pkcs11LibraryFactory.LoadPkcs11Library(factories, dllPath, AppType.MultiThreaded))
             {
-                ISlot slot = lib.GetSlotList(SlotsType.WithTokenPresent).First();
+                ISlot slot = lib.GetSlotList(SlotsType.WithTokenPresent).FirstOrDefault();
+                if (slot == null)
+                    throw new Exception("No Slot Present...");
                 ITokenInfo tokenInfo = slot.GetTokenInfo();
                 using (ISession session = slot.OpenSession(SessionType.ReadOnly))
                 {
