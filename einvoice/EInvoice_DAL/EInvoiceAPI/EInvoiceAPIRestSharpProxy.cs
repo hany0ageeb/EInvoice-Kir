@@ -182,7 +182,7 @@ namespace EInvoice.DAL.EInvoiceAPI
                     error = new PortalError() { Error = new Error() { Message = response.Content } };
                 else
                     error = new PortalError() { Error = new Error() { Message = response.ErrorMessage ?? response.StatusDescription } };
-                throw new WebAPIException($"{error?.Error?.Message??"Portal Error."}");
+                throw new WebAPIException($"{error?.Error?.Message??"Unable To Connect."}");
             }
         }
         public DocumentPackageRequestResult GetPackageRequests(int pageNo,int pageSize)

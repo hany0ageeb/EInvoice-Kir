@@ -163,40 +163,48 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ElecTaxSrv\\.nuget\\packages\\": {}
+    "C:\\Users\\sp1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ElecTaxSrv\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
       "projectName": "EInvoice.DAL",
-      "projectPath": "C:\\Users\\ElecTaxSrv\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
-      "packagesPath": "C:\\Users\\ElecTaxSrv\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ElecTaxSrv\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\obj\\",
+      "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
+      "packagesPath": "C:\\Users\\sp1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ElecTaxSrv\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\sp1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net461"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\sp1\\Desktop\\SER\\EInvoiceApp\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net461": {
+          "targetAlias": "net461",
           "projectReferences": {
-            "C:\\Users\\ElecTaxSrv\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
-              "projectPath": "C:\\Users\\ElecTaxSrv\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj"
+            "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
+              "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj"
             }
           }
         }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
       }
     },
     "frameworks": {
       "net461": {
+        "targetAlias": "net461",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -206,7 +214,8 @@
             "target": "Package",
             "version": "[106.12.0, )"
           }
-        }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -16,6 +16,7 @@ namespace EInvoice.DesktopUI.ViewModel
         private string _statusOnPortal;
         private string _statusErrorOnPortal;
         private string _submissionUUID;
+        private bool _submit = true;
         public string InternalId { get; set; }
         public string ProformaInvoiceNumber { get; set; }
         public DateTime IssueDate { get; set; }
@@ -23,14 +24,14 @@ namespace EInvoice.DesktopUI.ViewModel
         public decimal TotalAmount { get; set; }
         public ValidationResult LocalValidationResult { get; set; }
         public DocumentValidationResult PortalValidationResult { get; set; }
-        private object lockthis = new object();
+        
 
         public string SubmissionUUID 
         { 
             get=>_submissionUUID; 
             set 
             {
-                lock (lockthis)
+                //lock (lockthis)
                 {
                     if (value != _submissionUUID)
                     {
@@ -45,7 +46,7 @@ namespace EInvoice.DesktopUI.ViewModel
             get=>_uuid; 
             set 
             {
-                lock (lockthis)
+                //lock (lockthis)
                 {
                     if (value != _uuid)
                     {
@@ -60,7 +61,7 @@ namespace EInvoice.DesktopUI.ViewModel
             get=>_statusOnPortal; 
             set 
             {
-                lock (lockthis)
+                //lock (lockthis)
                 {
                     if (value != _statusOnPortal)
                     {
@@ -75,7 +76,7 @@ namespace EInvoice.DesktopUI.ViewModel
             get => _statusErrorOnPortal;
             set
             {
-                lock (lockthis)
+                //lock (lockthis)
                 {
                     if (value != _statusErrorOnPortal)
                     {
@@ -85,7 +86,18 @@ namespace EInvoice.DesktopUI.ViewModel
                 }
             }
         }
-        public bool Submit { get; set; } = true;
+        public bool Submit 
+        {
+            get => _submit;
+            set
+            {
+                if (_submit != value)
+                {
+                    _submit = value;
+                    NotifyPropertyChanged("Submit");
+                }
+            }
+        }
         public Document Document { get; set; }
         public string DocumentButtonText { get; set; } = "Details";
 
@@ -102,7 +114,7 @@ namespace EInvoice.DesktopUI.ViewModel
         private int _progressBarMin;
         private int _progressBarValue;
         private bool _submitButtonEnabled;
-        private object lockThis = new object();
+        
         public bool SubmitButtonEnabled
         {
             get => _submitButtonEnabled;
@@ -120,14 +132,13 @@ namespace EInvoice.DesktopUI.ViewModel
             get => _progressBarVisible; 
             set 
             {
-                lock (lockThis)
-                {
+                
                     if (value != _progressBarVisible)
                     {
                         _progressBarVisible = value;
                         NotifyPropertyChanged("ProgressBarVisible");
                     }
-                }
+                
             } 
         } 
         public int ProgressBarMax 
@@ -135,14 +146,13 @@ namespace EInvoice.DesktopUI.ViewModel
             get=>_progressBarMax; 
             set 
             {
-                lock (lockThis)
-                {
+                
                     if (value != _progressBarMax)
                     {
                         _progressBarMax = value;
                         NotifyPropertyChanged("ProgressBarMax");
                     }
-                }
+                
             } 
         }
         public int ProgressBarMin 
@@ -150,14 +160,13 @@ namespace EInvoice.DesktopUI.ViewModel
             get=>_progressBarMin; 
             set 
             {
-                lock (lockThis)
-                {
+                
                     if (value != _progressBarMin)
                     {
                         _progressBarMin = value;
                         NotifyPropertyChanged("ProgressBarMin");
                     }
-                }
+                
             } 
         }
         public int ProgressBarValue 
@@ -166,14 +175,14 @@ namespace EInvoice.DesktopUI.ViewModel
 
             set 
             {
-                lock (lockThis)
-                {
+                
+                
                     if (value != _progressBarValue)
                     {
                         _progressBarValue = value;
                         NotifyPropertyChanged("ProgressBarValue");
                     }
-                }
+                
             } 
         }
         public StringBuilder MessageBoardText { get; set; }

@@ -160,13 +160,6 @@ namespace EInvoice.DesktopUI
                 {
 
                 }
-            }
-        }
-
-        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 11)
-            {
                 var Summary = new
                 {
                     Count = (from sub in _model.Submits where sub.Submit select sub).Count(),
@@ -174,6 +167,14 @@ namespace EInvoice.DesktopUI
                 };
                 txtInvoiceCount.Text = Summary.Count.ToString();
                 txtTotalAmount.Text = Summary.Total;
+            }
+        }
+
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 11)
+            {
+               
             }
         }
 
@@ -185,7 +186,6 @@ namespace EInvoice.DesktopUI
             submissionProgress.Value = _model.ProgressBarValue;
             btnSubmit.Enabled = _model.SubmitButtonEnabled;
         }
-
         private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             for (int i = 0; i < _model.Submits.Count; i++)
@@ -268,14 +268,54 @@ namespace EInvoice.DesktopUI
             }
             finally
             {
-                _model.SubmitButtonEnabled = false;
-                //this.Close();
+           
             }
         }
-
         private void SubmitDocumentsForm_Load(object sender, EventArgs e)
         {
-            Text = Text + "( " + _model.Issuer.Name + " / " + _model.APIEnvironment.Name + " )";
+            Text = Text + "( " + _model?.Issuer?.Name + " / " + _model?.APIEnvironment?.Name + " )";
+        }
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count <= 1)
+            {
+                foreach (var itm in _model.Submits)
+                {
+                    if (!itm.Submit)
+                        itm.Submit = true;
+                }
+            }
+            else
+            {
+                for (int index = 0; index < dataGridView1.SelectedRows.Count; index++)
+                {
+                    var itm = _model.Submits[dataGridView1.SelectedRows[index].Index];
+                    if (!itm.Submit)
+                        itm.Submit = true;
+                }
+            }
+
+        }
+        private void btnDeselectAll_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count <= 1)
+            {
+                foreach (var itm in _model.Submits)
+                {
+                    if (itm.Submit)
+                        itm.Submit = false;
+                }
+            }
+            else
+            {
+                for(int index = 0; index < dataGridView1.SelectedRows.Count; index++)
+                {
+                    var itm = _model.Submits[dataGridView1.SelectedRows[index].Index];
+                    if (itm.Submit)
+                        itm.Submit = false;
+                }
+            }
+            
         }
     }
 }

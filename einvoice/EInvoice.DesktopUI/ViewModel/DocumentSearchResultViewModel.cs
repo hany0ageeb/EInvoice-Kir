@@ -20,11 +20,39 @@ namespace EInvoice.DesktopUI.ViewModel
         public string Status { get; set; }
 
     }
-    public class DocumentSerachResultViewModel
+    public class DocumentSerachResultViewModel 
     {
+        private int _progressBarValue = 0;
+       
         public BindingList<DocumentSearchResultLineViewModel> Lines { get; set; } = new BindingList<DocumentSearchResultLineViewModel>();
         public DocumentSearchViewModel DocumentSearchViewModel { get; set; }
         public Issuer Issuer { get; set; }
         public APIEnvironment Environment { get; set; }
+        public bool ProgressBarVisible { get; set; } = false;
+        public int MinValue { get; set; } = 0;
+        public int MaxValue { get; set; }
+        public int ProgressBarValue 
+        {
+            get
+            {
+               
+                {
+                    return _progressBarValue;
+                }
+            }
+            set
+            {
+               
+                {
+                    if (value != _progressBarValue)
+                    {
+                        _progressBarValue = value;
+                       
+                    }
+                }
+            }
+        }
+
+       
     }
 }

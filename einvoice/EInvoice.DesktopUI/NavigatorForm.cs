@@ -27,38 +27,41 @@ namespace EInvoice.DesktopUI
         }
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 SelectOption();
-            //}
-            //catch(Exception ex)
-            //{
+            }
+            catch(Exception ex)
+            {
                 Cursor = Cursors.Default;
-              //  MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
-            //}
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK);
+            }
         }
         private void SelectOption()
         {
-            switch (lstOptions.SelectedItem as string)
-            {
-                case "Submit Documents":
-                    Cursor = Cursors.WaitCursor;
-                    var model = _controller.SubmitDocuments(NavigatorViewModel.Issuer, NavigatorViewModel.APIEnvironment);
-                    SubmitDocumentsForm submitDocumentsForm = new SubmitDocumentsForm(model, _controller);
-                    Cursor = Cursors.Default;
-                    submitDocumentsForm.ShowDialog(this);
-                    break;
-                case "Documents":
-                    DocumentSearchViewModel documentSearchFormmodel = _controller.SearchDocuments(NavigatorViewModel.Issuer, NavigatorViewModel.APIEnvironment);
-                    DocumentSearchForm documentSearchForm = new DocumentSearchForm(documentSearchFormmodel, _controller);
-                    documentSearchForm.ShowDialog(this);
-                    break;
-                case "Reports":
-                    SelectReportViewModel selectReportViewModel = _controller.SelectReport(NavigatorViewModel.Issuer,NavigatorViewModel.APIEnvironment);
-                    SelectReportForm selectReportForm = new SelectReportForm(selectReportViewModel, _controller);
-                    selectReportForm.ShowDialog(this);
-                    break;
-            }
+           
+                switch (lstOptions.SelectedItem as string)
+                {
+                    case "Submit Documents":
+                        Cursor = Cursors.WaitCursor;
+                        _controller.ProcessCrashData(NavigatorViewModel.Issuer, NavigatorViewModel.APIEnvironment);
+                        var model = _controller.SubmitDocuments(NavigatorViewModel.Issuer, NavigatorViewModel.APIEnvironment);
+                        SubmitDocumentsForm submitDocumentsForm = new SubmitDocumentsForm(model, _controller);
+                        Cursor = Cursors.Default;
+                        submitDocumentsForm.ShowDialog(this);
+                        break;
+                    case "Documents":
+                        DocumentSearchViewModel documentSearchFormmodel = _controller.SearchDocuments(NavigatorViewModel.Issuer, NavigatorViewModel.APIEnvironment);
+                        DocumentSearchForm documentSearchForm = new DocumentSearchForm(documentSearchFormmodel, _controller);
+                        documentSearchForm.ShowDialog(this);
+                        break;
+                    case "Reports":
+                        SelectReportViewModel selectReportViewModel = _controller.SelectReport(NavigatorViewModel.Issuer, NavigatorViewModel.APIEnvironment);
+                        SelectReportForm selectReportForm = new SelectReportForm(selectReportViewModel, _controller);
+                        selectReportForm.ShowDialog(this);
+                        break;
+                }
+           
         }
         private void NavigatorForm_FormClosing(object sender, FormClosingEventArgs e)
         {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj": {}
+    "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
+    "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
+        "projectUniqueName": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
         "projectName": "EInvoice",
-        "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
+        "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
         "packagesPath": "C:\\Users\\sp1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\obj\\",
+        "outputPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sp1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,14 +58,14 @@
         }
       }
     },
-    "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj": {
+    "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
         "projectName": "EInvoice.DAL",
-        "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
+        "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\EInvoice.DAL.csproj",
         "packagesPath": "C:\\Users\\sp1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice_DAL\\obj\\",
+        "outputPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice_DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sp1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -83,8 +83,8 @@
           "net461": {
             "targetAlias": "net461",
             "projectReferences": {
-              "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
-                "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice\\EInvoice\\EInvoice.Model\\EInvoice.csproj"
+              "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj": {
+                "projectPath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj"
               }
             }
           }
