@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bVsyHreAKwZmPYE5DvXHm9pKMfOuTTKDHa9SqQ3m/20O/Il1XN909SxnVjSjhfixT8B8J26WsClK6u1utZlR9A==",
+  "dgSpecHash": "VdEmuz5pHvvH+lHMyduhkOL7fuUxUGXoz5zcO7G2+swj7lLucVdB3A/vrNBTyiUADmCrm3PT9341DVBlgW6e6A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sp1\\Desktop\\EInvoice\\EInvoice.Model\\EInvoice.csproj",
+  "projectFilePath": "C:\\Users\\sp1\\Desktop\\EInvoice-Kir\\EInvoice.Model\\EInvoice.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sp1\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\sp1\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
