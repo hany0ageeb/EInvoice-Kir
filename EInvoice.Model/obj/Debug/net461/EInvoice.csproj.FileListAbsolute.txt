@@ -88,3 +88,4 @@ C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.cspro
 C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.csproj.CopyComplete
 C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.dll
 C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.pdb
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.csprojAssemblyReference.cache
