@@ -510,7 +510,7 @@ namespace EInvoice.DAL.DAO
                     var docTaxTotals = new List<TaxTotal>();
                     Document doc = new Document();
                     doc.Id = null;
-                    doc.DateTimeIssued = docHeader.Field<DateTime>("DOC_DATETIMEISS");
+                    doc.DateTimeIssued = docHeader.Field<DateTime>("DOC_DATETIMEISS").ToUniversalTime();
                     doc.DocumentType = docHeader.Field<string>("DOC_TYPE");
                     doc.DocumentTypeVersion = docHeader.Field<string>("DOC_TYPVER");
                     doc.InternalId = docHeader.Field<string>("DOC_INTERNALID");

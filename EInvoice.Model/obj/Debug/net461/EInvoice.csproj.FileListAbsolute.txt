@@ -77,3 +77,14 @@ C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Debug\net461\EInvoice.csproj.Co
 C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Debug\net461\EInvoice.csproj.CopyComplete
 C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Debug\net461\EInvoice.dll
 C:\Users\sp1\Desktop\EInvoice\EInvoice.Model\obj\Debug\net461\EInvoice.pdb
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\bin\Debug\net461\EInvoice.dll
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\bin\Debug\net461\EInvoice.pdb
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\bin\Debug\net461\BouncyCastle.Crypto.dll
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\bin\Debug\net461\Newtonsoft.Json.dll
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\bin\Debug\net461\Pkcs11Interop.dll
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.AssemblyInfoInputs.cache
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.AssemblyInfo.cs
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.csproj.CoreCompileInputs.cache
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.csproj.CopyComplete
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.dll
+C:\Users\sp1\Desktop\EInvoice-Kir\EInvoice.Model\obj\Debug\net461\EInvoice.pdb

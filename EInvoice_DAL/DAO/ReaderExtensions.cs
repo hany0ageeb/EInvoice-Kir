@@ -55,7 +55,7 @@ namespace EInvoice.DAL.DAO
         public static Document ReadDocument(this DbDataReader reader, Dictionary<string, string> propertyColumnMappings)
         {
             Document doc = new Document();
-            doc.DateTimeIssued = Convert.ToDateTime(reader[propertyColumnMappings["Document.DateTimeIssued"]]);
+            doc.DateTimeIssued = Convert.ToDateTime(reader[propertyColumnMappings["Document.DateTimeIssued"]]).ToLocalTime();
             doc.Delivery = reader.ReadDelivery(propertyColumnMappings);
             doc.DocumentType = reader[propertyColumnMappings["Document.DocumentType"]] as string;
             doc.DocumentTypeVersion = reader[propertyColumnMappings["Document.DocumentTypeVersion"]] as string;
