@@ -768,7 +768,7 @@ namespace SyncData
             IInvoiceLineDao invoiceLineDao = new InvoiceLineDaoAdoImpl(connection, taxableItemDao);
             IReceiverDao receiverDao = new ReceiverDaoAdoImpl(connection);
             IDocumentDao documentDao = new DocumentDaoAdoImpl(connection, invoiceLineDao, receiverDao);
-            IList<Issuer> issuers = issuerDao.Find().ToList();
+            IList<Issuer> issuers = issuerDao.Find().Where(iss=>iss.Id == "205018637").ToList();
             foreach (Issuer issuer in issuers)
             {
                 IList<APIEnvironment> environments = environmentDao.Find().ToList();
@@ -790,7 +790,7 @@ namespace SyncData
                         {
                             if (doc.status == "Valid" && doc.issuerId == issuer.Id)
                             {
-                                
+                                Console.WriteLine(doc.internalId +" Date:"+doc.dateTimeIssued.ToLocalTime().ToShortDateString());
                                 IList<Document> found = documentDao.FindByInternalId(doc.internalId);
                                 var docExtended = proxy.GetDocument(doc.uuid);
                                 if (found.Count == 0)
