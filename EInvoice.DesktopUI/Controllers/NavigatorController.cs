@@ -26,10 +26,9 @@ namespace EInvoice.DesktopUI.Controllers
             _accessDetailsDao = accessDetailsDao;
             _receiverDao = receiverDao;
         }
-        public void ViewDocumentDetails(Document doc)
+        public DocumentViewModel ViewDocumentDetails(Document doc)
         {
-            DocumentForm form = new DocumentForm(new DocumentViewModel() { Document = doc,IsEditable = false});
-            form.ShowDialog();
+            return new DocumentViewModel() { Document = doc,IsEditable = false};
         }
         public DocumentSearchViewModel SearchDocuments(Issuer issuer,APIEnvironment env)
         {

@@ -203,7 +203,9 @@ namespace EInvoice.DesktopUI
             {
                 if (e.RowIndex >= 0)
                 {
-                    _controller.ViewDocumentDetails(_model.Submits[e.RowIndex].Document);
+                    var model = _controller.ViewDocumentDetails(_model.Submits[e.RowIndex].Document);
+                    DocumentForm documentForm = new DocumentForm(model);
+                    documentForm.ShowDialog(this);
                 }
             }
         }
