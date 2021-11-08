@@ -768,7 +768,7 @@ namespace SyncData
             IInvoiceLineDao invoiceLineDao = new InvoiceLineDaoAdoImpl(connection, taxableItemDao);
             IReceiverDao receiverDao = new ReceiverDaoAdoImpl(connection);
             IDocumentDao documentDao = new DocumentDaoAdoImpl(connection, invoiceLineDao, receiverDao);
-            IList<Issuer> issuers = issuerDao.Find().ToList();
+            IList<Issuer> issuers = issuerDao.Find().Where(iss=>iss.Id== "205018637" || iss.Id== "310700655").ToList();
             foreach (Issuer issuer in issuers)
             {
                 IList<APIEnvironment> environments = environmentDao.Find().ToList();
